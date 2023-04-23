@@ -28,12 +28,12 @@ Activate VkPromo from command line
 ## run example
 1. one promo 
 ```
-venv/bin/python3 main.py -s "58afdf97cdf462d331" -c "remixstlid=9070488774126112932_7N31zfOTHks7E1ODLwWOXu8xc0zjqsH9YppxngjBqUD; remixua=157%7C-1%7C195%7...more values here" -p "FL2Y-7CZT-RYHS-MQ0T"
+venv/bin/python3 main.py -c "remixstlid=9070488774126112932_7N31zfOTHks7E1ODLwWOXu8xc0zjqsH9YppxngjBqUD; remixua=157%7C-1%7C195%7...more values here" -p "FL2Y-7CZT-RYHS-MQ0T"
 ```
 
-2. many promo 
+2. many promo and cookie from file
 ```
-venv/bin/python3 main.py -s "58afdf97cdf462d331" -c "remixstlid=9070488774126112932_7N31zfOTHks7E1ODLwWOXu8xc0zjqsH9YppxngjBqUD; remixua=157%7C-1%7C195%7...more values here" -f promocodes_folder/Petya.txt
+venv/bin/python3 main.py -k cookies.txt -f promocodes_folder/Petya.txt
 ```
 
 ## thanks to 
