@@ -4,7 +4,7 @@ Activate VkPromo from command line
 ## How to install:
 ### with venv (optional)
 1. create venv `python3 -m venv venv`
-2. install dependencies `venv/bin/pip -r requirements.txt`
+2. install dependencies `venv/bin/pip install -r requirements.txt`
 
 ### without venv
 1. install dependencies `pip install -r requirements.txt`
