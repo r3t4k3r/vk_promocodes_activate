@@ -1,6 +1,8 @@
 # vk_promocodes_activate
 Activate VkPromo from command line
 
+!!! PYTHON < 3.11 required
+
 ## How to install:
 1. clone this repository `git clone https://github.com/r3t4k3r/vk_promocodes_activate.git`
 2. enter in project direcotory `cd vk_promocodes_activate`
