@@ -29,6 +29,7 @@ Activate VkPromo from command line
 4. `-p` `--promocode` activate only one promocode
 5. `-f` `--file` activates promocodes from file (every promo from newline)
 6. `-d` `--delay` delay between requests
+7. `-y` `--captchadelay` delay before solve captcha, by default captchadelay=delay
 
 ## run example
 1. one promo 
