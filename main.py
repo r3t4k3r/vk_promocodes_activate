@@ -127,10 +127,10 @@ def main():
         return print('set --cookie or --cookiefile to use this script')
 
     if args.cookie:
-        cookie = args.cookie
+        cookie = args.cookie.strip()
     elif args.cookiefile:
         with open(args.cookiefile, 'r', encoding='utf-8') as f:
-            cookie = f.read()
+            cookie = f.read().strip()
 
     hash = args.hash
     if not args.hash:
