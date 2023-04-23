@@ -69,7 +69,8 @@ def main():
         description='Activates VKPromo by hash and cookie'
     )
     parser.add_argument('-p', '--promocode')
-    parser.add_argument('-c', '--cookie', required=True)
+    parser.add_argument('-c', '--cookie', help='cookie string')
+    parser.add_argument('-k', '--cookiefile', help='file with cookies')
     parser.add_argument('-f', '--file', help='file with promocodes')
     parser.add_argument('-d', '--delay', help='delay between requests', default=3, type=int)
     parser.add_argument('-s', '--hash', required=True, help='hash from https://vk.com/promo_codes.php?act=search request')
@@ -78,14 +79,23 @@ def main():
     if not args.promocode and not args.file:
         return print('set --promocode or --file to use this script')
 
+    if not args.cookie and not args.cookiefile:
+        return print('set --cookie or --cookiefile to use this script')
+
+    if args.cookie:
+        cookie = args.cookie
+    elif args.cookiefile:
+        with open(args.cookiefile, 'r', encoding='utf-8') as f:
+            cookie = f.read()
+
     if args.promocode:
-        activate_promocode(args.cookie, args.hash, args.promocode, args.delay)
+        activate_promocode(cookie, args.hash, args.promocode, args.delay)
     elif args.file:
         with open(args.file, 'r', encoding='utf-8') as f:
             lines = [x.strip() for x in f.readlines()]
 
         for line in lines:
-            activate_promocode(args.cookie, args.hash, line, args.delay)
+            activate_promocode(cookie, args.hash, line, args.delay)
 
 if __name__ == '__main__':
     main()
