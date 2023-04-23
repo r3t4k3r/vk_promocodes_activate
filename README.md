@@ -23,8 +23,8 @@ Activate VkPromo from command line
 1. `python3 main.py -h`
 
 ## args and params
-1. `-c` `--cookie` cookie string from request to `https://vk.com/promo_codes.php?act=search`(vk.com/promocode) tested only on chrome based browser
-2. `-k` `--cookiefile` file with cookies (`https://vk.com/promo_codes.php?act=search`(vk.com/promocode) tested only on chrome based browser)
+1. `-c` `--cookie` cookie string from request to `https://vk.com/promo_codes.php?act=search`(https://vk.com/promocode) tested only on chrome based browser
+2. `-k` `--cookiefile` file with cookies (`https://vk.com/promo_codes.php?act=search`(https://vk.com/promocode) tested only on chrome based browser)
 3. `-s` `--hash` hash FormData param from request to `https://vk.com/promo_codes.php?act=search`(vk.com/promocode)
 4. `-p` `--promocode` activate only one promocode
 5. `-f` `--file` activates promocodes from file (every promo from newline)
