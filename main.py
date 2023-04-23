@@ -39,7 +39,7 @@ def activate_promocode(cookie:str, hash:str, promocode:str, delay:int):
     }
 
     while True:
-        time.sleep(3)
+        time.sleep(delay)
         response = requests.post('https://vk.com/promo_codes.php', params=params, headers=headers, data=data)
         try:
             json = response.json()
