@@ -101,9 +101,10 @@ def activate_promocode(cookie: str, hash: str, promocode: str, delay: int):
                 error_text = json['payload'][1][0]['error_message']
                 print(f'[STATUS={status}] {promocode} [ERR={error_text}]')
                 break
-        except:
+        except Exception as e:
             print('status', response.status_code)
             print('response', response.text)
+            print('exception', e)
 
 
 def main():
