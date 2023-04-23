@@ -2,6 +2,9 @@
 Activate VkPromo from command line
 
 ## How to install:
+1. clone this repository `git clone https://github.com/r3t4k3r/vk_promocodes_activate.git`
+2. enter in project direcotory `cd vk_promocodes_activate`
+
 ### with venv (optional)
 1. create venv `python3 -m venv venv`
 2. install dependencies `venv/bin/pip install -r requirements.txt`
@@ -23,7 +26,7 @@ Activate VkPromo from command line
 3. `-s` `--hash` hash FormData param from request to https://vk.com/promo_codes.php?act=search
 4. `-p` `--promocode` activate only one promocode
 5. `-f` `--file` activates promocodes from file (every promo from newline)
-6. `-d` `--delay` delay before requests
+6. `-d` `--delay` delay between requests
 
 ## run example
 1. one promo 
