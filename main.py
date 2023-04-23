@@ -48,7 +48,7 @@ def get_hash(cookie: str):
         raise Exception('Cannot get hash, invalid cookie?')
 
 
-def activate_promocode(cookie: str, hash: str, promocode: str, delay: int):
+def activate_promocode(cookie: str, hash: str, promocode: str, delay: int, captchadelay: int):
     headers = {
         'authority': 'vk.com',
         'accept': '*/*',
@@ -78,28 +78,32 @@ def activate_promocode(cookie: str, hash: str, promocode: str, delay: int):
         'promo_code': promocode,
     }
 
+    captcha_tries_count = 0
+
     while True:
-        time.sleep(delay)
-        response = requests.post(
-            'https://vk.com/promo_codes.php', params=params, headers=headers, data=data)
+        response = requests.post('https://vk.com/promo_codes.php', params=params, headers=headers, data=data)
         try:
             json = response.json()
             if json['payload'][0] == '2':
                 # if captcha
-                print('captcha detected!')
                 data['captcha_sid'] = json['payload'][1][0][1:-1]
-                data['captcha_key'] = vc.solve(
-                    sid=int(data['captcha_sid']), s=1)
+                data['captcha_key'] = vc.solve(sid=int(data['captcha_sid']), s=1)
+                captcha_tries_count += 1
+                time.sleep(captchadelay)
                 continue
 
             status = json['payload'][1][0]['status']
             if status == 'success':
                 balance = json['payload'][1][0]['data']['balance']
-                print(f'[STATUS={status}] {promocode} [BALANCE={balance}]')
+                print(f'[{status.upper()}] {promocode} [CAPTCHA_TRIES_COUNT={captcha_tries_count}] [BALANCE={balance}]')
+                captcha_tries_count = 0
+                time.sleep(delay)
                 break
             else:
                 error_text = json['payload'][1][0]['error_message']
-                print(f'[STATUS={status}] {promocode} [ERR={error_text}]')
+                print(f'[{status.upper()}] {promocode} [CAPTCHA_TRIES_COUNT={captcha_tries_count}] [ERR={error_text}]')
+                captcha_tries_count = 0
+                time.sleep(delay)
                 break
         except Exception as e:
             print('status', response.status_code)
@@ -117,6 +121,7 @@ def main():
     parser.add_argument('-k', '--cookiefile', help='file with cookies')
     parser.add_argument('-f', '--file', help='file with promocodes')
     parser.add_argument('-d', '--delay', help='delay between requests', default=3, type=int)
+    parser.add_argument('-y', '--captchadelay', help='delay before solve captcha, by default captchadelay=delay', default=None, type=int)
     parser.add_argument('-s', '--hash', help='hash from https://vk.com/promo_codes.php?act=search request')
     args = parser.parse_args()
 
@@ -138,14 +143,17 @@ def main():
         hash = get_hash(cookie)
         print('hash received')
 
+    if not args.captchadelay:
+        args.captchadelay = args.delay
+
     if args.promocode:
-        activate_promocode(cookie, hash, args.promocode, args.delay)
+        activate_promocode(cookie, hash, args.promocode, args.delay, args.captchadelay)
     elif args.file:
         with open(args.file, 'r', encoding='utf-8') as f:
             lines = [x.strip() for x in f.readlines()]
 
         for line in lines:
-            activate_promocode(cookie, hash, line, args.delay)
+            activate_promocode(cookie, hash, line, args.delay, args.captchadelay)
 
 
 if __name__ == '__main__':
