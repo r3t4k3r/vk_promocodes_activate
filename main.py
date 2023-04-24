@@ -96,17 +96,19 @@ def check_promocode(args):
                 expired_at = datetime.fromtimestamp(json['payload'][1][0]['promo_code']['expired_at'])
                 print(f'[{status.upper()}] {args.promocode} [CAPTCHA_TRIES_COUNT={captcha_tries_count}] [VOTES={votes}] [EXPIRED_AT={expired_at}]')
                 captcha_tries_count = 0
-                with open(args.good, 'a', encoding='utf-8') as f:
-                    f.write(args.promocode + '\n')
+                if args.good:
+                    with open(args.good, 'a', encoding='utf-8') as f:
+                        f.write(args.promocode + '\n')
                 time.sleep(args.delay)
                 break
             else:
                 error_text = json['payload'][1][0]['error_message']
                 print(f'[{status.upper()}] {args.promocode} [CAPTCHA_TRIES_COUNT={captcha_tries_count}] [ERR={error_text}]')
                 captcha_tries_count = 0
-                with open(args.bad, 'a', encoding='utf-8') as f:
-                    f.write(args.promocode + '\n')
-                time.sleep(args.delay)
+                if args.bad:
+                    with open(args.bad, 'a', encoding='utf-8') as f:
+                        f.write(args.promocode + '\n')
+                    time.sleep(args.delay)
                 break
         except Exception as e:
             print('status', response.status_code)
@@ -204,9 +206,6 @@ def main():
 
     if not args.cookie and not args.cookiefile:
         return print('set --cookie or --cookiefile to use this script')
-
-    if args.check and (not args.good or not args.bad):
-        return print('set --good and --bad params to use --check flag')
 
     if args.cookie:
         args.cookie = args.cookie.strip()
