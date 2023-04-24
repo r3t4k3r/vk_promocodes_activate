@@ -30,16 +30,24 @@ Activate VkPromo from command line
 5. `-f` `--file` activates promocodes from file (every promo from newline)
 6. `-d` `--delay` delay between requests
 7. `-y` `--captchadelay` delay before solve captcha, by default captchadelay=delay
+9. `-r` `--check` flag! if you want only check promocodes and not activate it
+10. `-g` `--good` save good results to file (ATTENTION! it's rewrite file)
+11. `-b` `--bad` save bad results to file (ATTENTION! it's rewrite file)
 
 ## run example
 1. one promo 
 ```
-venv/bin/python3 main.py -c "remixstlid=9070488774126112932_7N31zfOTHks7E1ODLwWOXu8xc0zjqsH9YppxngjBqUD; remixua=157%7C-1%7C195%7...more values here" -p "FL2Y-7CZT-RYHS-MQ0T"
+python3 main.py -c "remixstlid=9070488774126112932_7N31zfOTHks7E1ODLwWOXu8xc0zjqsH9YppxngjBqUD; remixua=157%7C-1%7C195%7...more values here" -p "FL2Y-7CZT-RYHS-MQ0T"
 ```
 
 2. many promo and cookie from file
 ```
-venv/bin/python3 main.py -k cookies.txt -f promocodes_folder/Petya.txt
+python3 main.py -k cookies.txt -f promocodes_folder/Petya.txt
+```
+
+3. check promocodes from file
+```
+python3 main.py --check --file promocodes_folder/free.txt --cookiefile promocodes_folder/cookie.txt --good good.txt --bad bad.txt --delay 1 --captchadelay 3
 ```
 
 ## thanks to 
